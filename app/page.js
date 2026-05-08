@@ -20,7 +20,7 @@ export default function SteganoEncoder() {
   const [encImg, setEncImg] = useState(null);
   const [encLabel, setEncLabel] = useState("Зураг оруулах (PNG)");
   const [secretText, setSecretText] = useState("HELLO WORLD");
-  const [scale, setScale] = useState(1);
+  const [scale, setScale] = useState(4);
   const [encCanvas, setEncCanvas] = useState(null);
   const [encPixelData, setEncPixelData] = useState(null);
   const [changes, setChanges] = useState([]);
