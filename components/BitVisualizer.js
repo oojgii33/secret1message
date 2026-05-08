@@ -1,28 +1,54 @@
 import React from "react";
 
-function GroupCard({ ch, bits, val }) {
+function GroupCard({ ch, bits, val, isMetadata }) {
   return (
-    <div className="flex flex-col items-center gap-0.5 px-2 py-1.5 rounded-md border border-zinc-700 bg-zinc-800 min-w-[44px]">
-      <span className="text-base font-mono font-medium text-white">
-        {ch === " " ? "_" : ch}
+    <div
+      className={`flex flex-col items-center gap-0.5 px-2 py-1.5 rounded-md border min-w-[44px] ${
+        isMetadata
+          ? "border-amber-500/50 bg-amber-500/10"
+          : "border-zinc-700 bg-zinc-800"
+      }`}
+    >
+      <span
+        className={`text-base font-mono font-medium ${
+          isMetadata ? "text-amber-400" : "text-white"
+        }`}
+      >
+        {isMetadata ? "len" : ch === " " ? "_" : ch}
       </span>
       <span className="text-[11px] font-mono tracking-wide">
         {bits.split("").map((b, i) => (
           <span
             key={i}
-            className={b === "1" ? "text-red-400" : "text-zinc-500"}
+            className={
+              isMetadata
+                ? b === "1"
+                  ? "text-amber-300"
+                  : "text-amber-900"
+                : b === "1"
+                ? "text-red-400"
+                : "text-zinc-500"
+            }
           >
             {b}
           </span>
         ))}
       </span>
-      <span className="text-[10px] text-zinc-500">{val}</span>
+      <span
+        className={`text-[10px] ${
+          isMetadata ? "text-amber-600" : "text-zinc-500"
+        }`}
+      >
+        {val}
+      </span>
     </div>
   );
 }
 
 export default function BitVisualizer({ groups, changes }) {
   if (groups.length === 0) return null;
+
+  const filteredGroups = groups.filter((g) => !g.isMetadata);
 
   return (
     <div className="space-y-4">
@@ -31,15 +57,21 @@ export default function BitVisualizer({ groups, changes }) {
           6 пиксел → 1 үсэг
         </p>
         <div className="flex flex-wrap gap-2">
-          {groups.map((g, i) => (
-            <GroupCard key={i} ch={g.ch} bits={g.bits} val={g.val} />
+          {filteredGroups.map((g, i) => (
+            <GroupCard
+              key={i}
+              ch={g.ch}
+              bits={g.bits}
+              val={g.val}
+              isMetadata={g.isMetadata}
+            />
           ))}
         </div>
       </div>
 
       <div className="bg-zinc-900 rounded-lg p-3 font-mono text-[11px] text-zinc-400 leading-relaxed border border-zinc-800">
         <div className="mb-1 flex flex-wrap gap-2">
-          {groups.map((g, i) => (
+          {filteredGroups.map((g, i) => (
             <span key={i} className="mr-3">
               <span className="text-white font-medium">
                 '{g.ch === " " ? "_" : g.ch}'

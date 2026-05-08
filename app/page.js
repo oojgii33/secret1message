@@ -33,6 +33,7 @@ export default function SteganoEncoder() {
   const [decStat, setDecStat] = useState("");
 
   const groups = textToGroups(secretText);
+  const previewGroups = textToGroups(secretText, true);
 
   // Reactive preview rendering
   useEffect(() => {
@@ -42,11 +43,11 @@ export default function SteganoEncoder() {
         encPixelData,
         encImg.width,
         encImg.height,
-        groups,
+        previewGroups,
         scale,
       );
     }
-  }, [encPixelData, encImg, groups, scale]);
+  }, [encPixelData, encImg, previewGroups, scale]);
 
   function handleEncFile(file) {
     const url = URL.createObjectURL(file);
@@ -125,11 +126,11 @@ export default function SteganoEncoder() {
               onTextChange={handleTextChange}
               onScaleChange={handleScaleChange}
             />
-            <BitVisualizer groups={groups} changes={changes} />
+            <BitVisualizer groups={previewGroups} changes={changes} />
             <PreviewSection
               encImg={encImg}
               previewRef={previewRef}
-              groups={groups}
+              groups={previewGroups}
               encCanvas={encCanvas}
               onDownload={downloadEncoded}
             />

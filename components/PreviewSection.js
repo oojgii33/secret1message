@@ -31,7 +31,7 @@ export default function PreviewSection({
         </div>
         {encImg && (
           <p className="text-[12px] text-zinc-500 mt-1.5">
-            Үсэг: {groups.length} | Нуусан пиксел: {groups.length * 6} /{" "}
+            Үсэг: {groups.filter(g => !g.isMetadata).length} | Нуусан пиксел: {groups.length * 6} /{" "}
             {encImg.width * encImg.height} | Зураг: {encImg.width}×
             {encImg.height}
           </p>
