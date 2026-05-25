@@ -3,7 +3,7 @@ import React from "react";
 function GroupCard({ ch, bits, val, isMetadata }) {
   return (
     <div
-      className={`flex flex-col items-center gap-0.5 px-2 py-1.5 rounded-md border min-w-[44px] ${
+      className={`flex flex-col items-center gap-0.5 px-2 py-1.5 rounded-md border min-w-11 ${
         isMetadata
           ? "border-amber-500/50 bg-amber-500/10"
           : "border-zinc-700 bg-zinc-800"
@@ -26,8 +26,8 @@ function GroupCard({ ch, bits, val, isMetadata }) {
                   ? "text-amber-300"
                   : "text-amber-900"
                 : b === "1"
-                ? "text-red-400"
-                : "text-zinc-500"
+                  ? "text-red-400"
+                  : "text-zinc-500"
             }
           >
             {b}
